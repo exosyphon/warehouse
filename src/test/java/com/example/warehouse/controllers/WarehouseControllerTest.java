@@ -40,5 +40,6 @@ public class WarehouseControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         verify(mockWarehouseRepository).findAll();
+        verify(mockWarehouseService).getThemAll();
     }
 }
