@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,16 +21,14 @@ import static org.mockito.Mockito.when;
 public class WarehouseControllerTest {
 
     @Mock
-    private WarehouseService mockWarehouseService;
-
-    @Mock
     private WarehouseRepository mockWarehouseRepository;
 
+    private WarehouseService mockWarehouseService;
     private WarehouseController warehouseController;
 
     @Before
     public void setup() {
-        mockWarehouseService = new WarehouseService(mockWarehouseRepository);
+        mockWarehouseService = Mockito.spy(new WarehouseService(mockWarehouseRepository));
         warehouseController = new WarehouseController(mockWarehouseRepository, mockWarehouseService);
     }
 
