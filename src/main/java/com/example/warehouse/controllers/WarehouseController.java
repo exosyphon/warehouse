@@ -18,12 +18,10 @@ import static java.util.Arrays.asList;
 @CrossOrigin
 public class WarehouseController {
 
-  private WarehouseRepository warehouseRepository;
   private WarehouseService warehouseService;
 
   @Autowired
-  public WarehouseController(WarehouseRepository warehouseRepository, WarehouseService warehouseService) {
-    this.warehouseRepository = warehouseRepository;
+  public WarehouseController(WarehouseService warehouseService) {
     this.warehouseService = warehouseService;
   }
 
