@@ -1,6 +1,6 @@
 package com.example.warehouse.controllers;
 
-import com.example.warehouse.domain.Warehouse;
+import com.example.warehouse.models.Warehouse;
 import com.example.warehouse.repos.WarehouseRepository;
 import com.example.warehouse.services.WarehouseService;
 import com.example.warehouse.viewmodels.WarehouseResponse;
@@ -29,9 +29,6 @@ public class WarehouseController {
 
   @RequestMapping("/")
   public ResponseEntity<List<WarehouseResponse>> index() {
-    warehouseRepository.save(new Warehouse(null, "wow it works"));
-    warehouseRepository.save(new Warehouse(null, " with things"));
-
     List<Warehouse> themAll = warehouseService.getThemAll();
     Warehouse warehouse1 = themAll.get(0);
     Warehouse warehouse2 = themAll.get(1);

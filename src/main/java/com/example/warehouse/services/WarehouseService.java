@@ -1,6 +1,6 @@
 package com.example.warehouse.services;
 
-import com.example.warehouse.domain.Warehouse;
+import com.example.warehouse.models.Warehouse;
 import com.example.warehouse.repos.WarehouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

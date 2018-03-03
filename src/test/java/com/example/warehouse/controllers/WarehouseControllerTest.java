@@ -1,14 +1,12 @@
 package com.example.warehouse.controllers;
 
-import com.example.warehouse.domain.Warehouse;
-import com.example.warehouse.repos.WarehouseRepository;
+import com.example.warehouse.models.Warehouse;
 import com.example.warehouse.services.WarehouseService;
 import com.example.warehouse.viewmodels.WarehouseResponse;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,31 +21,24 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class WarehouseControllerTest {
 
-    @Mock
-    private WarehouseRepository mockWarehouseRepository;
+  @Mock
+  private WarehouseService mockWarehouseService;
 
-    private WarehouseService mockWarehouseService;
-    private WarehouseController warehouseController;
+  @InjectMocks
+  private WarehouseController warehouseController;
 
-    @Before
-    public void setup() {
-        mockWarehouseService = Mockito.spy(new WarehouseService(mockWarehouseRepository));
-        warehouseController = new WarehouseController(mockWarehouseRepository, mockWarehouseService);
-    }
+  @Test
+  public void testIndex() {
+    when(mockWarehouseService.getThemAll()).thenReturn(asList(new Warehouse(1L, "name"), new Warehouse(2L, "other name")));
 
-    @Test
-    public void testIndex() {
-        when(mockWarehouseRepository.findAll()).thenReturn(asList(new Warehouse(1L, "name"), new Warehouse(2L, "other name")));
+    ResponseEntity<List<WarehouseResponse>> response = warehouseController.index();
 
-        ResponseEntity<List<WarehouseResponse>> response = warehouseController.index();
+    assertEquals(HttpStatus.OK, response.getStatusCode());
+    assertEquals(response.getBody(), asList(
+        new WarehouseResponse(1L, "name"),
+        new WarehouseResponse(2L, "other name")
+    ));
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(response.getBody(), asList(
-            new WarehouseResponse(1L, "name"),
-            new WarehouseResponse(2L, "other name")
-        ));
-
-        verify(mockWarehouseRepository).findAll();
-        verify(mockWarehouseService).getThemAll();
-    }
+    verify(mockWarehouseService).getThemAll();
+  }
 }

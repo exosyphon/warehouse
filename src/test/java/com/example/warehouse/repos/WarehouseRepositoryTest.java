@@ -1,6 +1,6 @@
 package com.example.warehouse.repos;
 
-import com.example.warehouse.domain.Warehouse;
+import com.example.warehouse.models.Warehouse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
